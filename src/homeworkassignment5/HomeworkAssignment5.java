@@ -21,7 +21,7 @@ public class HomeworkAssignment5 {
 //       dbConn.createDB();
         
 
-    FileReader fR = new FileReader();
+    MyFileReader fR = new MyFileReader();
     fR.readFile();
 
         

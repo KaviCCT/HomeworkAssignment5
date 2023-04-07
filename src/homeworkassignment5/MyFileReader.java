@@ -4,15 +4,20 @@
  */
 package homeworkassignment5;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+
 
 /**
  *
  * @author kavip
  */
-public class FileReader {
+public class MyFileReader {
     
             //Dcelaring ANSI_RESET so we can reset the colour
     public static final String ANSI_RESET = "\u001B[30m";
@@ -24,12 +29,18 @@ public class FileReader {
     
     
     
-    public void readFile(){
+    public void readFile() throws IOException{
     
+        
+         
+        
         // TRY CATCH FOR ERRORS READING FROM A CSV FILE
          try {
             //Declaring and reading from text file path specified
-            Scanner file = new Scanner(new java.io.FileReader("C:\\Users\\kavip\\Desktop\\New folder\\Study\\Applied Software Development\\Java Programming Object Oriented\\newData.csv"));
+//            Scanner file = new Scanner(new java.io.MyFileReader("C:\\Users\\kavip\\Desktop\\New folder\\Study\\Applied Software Development\\Java Programming Object Oriented\\newData.csv"));
+            
+            BufferedReader file = new BufferedReader(new FileReader("C:\\Users\\kavip\\Desktop\\New folder\\Study\\Applied Software Development\\Java Programming Object Oriented\\newData.csv"));
+
             // DECLARING REQUIRED VARIABLES 
             int invoice;
             int stockCode;
@@ -40,20 +51,29 @@ public class FileReader {
             int customerID;
             String country;
             
+//            int invoice;
+//            int stockCode;
+//            String description;
+//            int quantity;
+//            String invoiceDate;
+//            double price;
+//            int customerID;
+//            String country;
+            
             // CHECKING FOR EMPTY FILE
-            if (!file.hasNext()){
+            if (file.readLine() == null){
                 System.out.println(ANSI_RED + "That is an empty file." + ANSI_RESET);
             }
-            
+            file.readLine();
             
             //Loop for reading all lines in file
             //Using .hasNext instead of .hasNextLine to avoid throwing errors for empty lines at end of file
-            while (file.hasNextLine()){
+            while (file.readLine() != null){
                 
                 //Skipp empty lines in input file
-                file.skip("[\\s]*");
+    
                 // ALLOCATING String fileLine TO THE NEXT FILE LINE .nextLine()
-                String fileLine = file.nextLine();
+                String fileLine = file.readLine();
                 // SPLITTING filLine INTO AN ARRAY OF SUBSTRING AT "," USING REGEX AND split()
                 // STRING IT IN fileLineArray[]
                 String fileLineArray[] = fileLine.split(",");
@@ -66,13 +86,13 @@ public class FileReader {
                 price = Double.parseDouble(fileLineArray[5]);
                 customerID = Integer.parseInt(fileLineArray[6]);
                 country = fileLineArray[7];
-                System.out.println(invoice);
-                System.out.println(stockCode);
+                System.out.println(Integer.toString(invoice));
+                System.out.println(Integer.toString(stockCode));
                 System.out.println(description);
-                System.out.println(quantity);
+                System.out.println(Integer.toString(quantity));
                 System.out.println(invoiceDate);
-                System.out.println(price);
-                System.out.println(customerID);
+                System.out.println(Double.toString(price));
+                System.out.println(Integer.toString(customerID));
                 System.out.println(country);
             }
             System.out.println(ANSI_GREEN + "File loaded." + ANSI_RESET);
