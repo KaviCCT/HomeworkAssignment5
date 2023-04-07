@@ -29,7 +29,7 @@ public class DatabaseIO {
     private final String DB_URL = "jdbc:mysql://localhost";
     private final String USER = "pooa";
     private final String PASSWD = "pooa";
-    private final String DB_NAME = "hospital";
+    private final String DB_NAME = "homework";
     
     public void createDB() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
@@ -40,40 +40,25 @@ public class DatabaseIO {
 
             System.out.println(ANSI_GREEN + "Database Created..." + ANSI_RESET);
 
-            stmt.execute("USE hospital;");
-            stmt.execute("CREATE TABLE IF NOT EXISTS patients ("
-                            + "patientID INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,"
-                            + "name VARCHAR(40) NOT NULL,"
-                            + "complaints VARCHAR(255)"
+            stmt.execute("USE homework;");
+            stmt.execute("CREATE TABLE IF NOT EXISTS miniHomework5 ("
+                            + "entryID INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,"
+                            + "invoice INT(10) NOT NULL,"
+                            + "stockCode INT(10) NOT NULL,"
+                            + "description VARCHAR(255) NOT NULL,"
+                            + "quantity INT(10) NOT NULL,"
+                            + "invoiceDate VARCHAR(40) NOT NULL,"
+                            + "price double(10,2) NOT NULL,"
+                            + "customerID INT(10) NOT NULL,"
+                            + "country VARCHAR(50)"
                             + ");");
 
-            System.out.println(ANSI_GREEN + "Patient table Created...." + ANSI_RESET);
+            System.out.println(ANSI_GREEN + "miniHomework5 table Created...." + ANSI_RESET);
 
             
             
             
-            
-            
-            stmt.execute("CREATE TABLE IF NOT EXISTS surgeryHistory ("
-                            + "surgeryID INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,"
-                            + "patientName VARCHAR(40) NOT NULL,"
-                            + "department VARCHAR(40) NOT NULL,"
-                            + "surgeon VARCHAR(40) NOT NULL"
-                            + ");");
-            System.out.println(ANSI_GREEN + "Surgery history table created..." + ANSI_RESET);
-            
-            
-            
-            
-            stmt.execute("CREATE TABLE IF NOT EXISTS medicationHistory ("
-                            + "prescriptionID INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,"
-                            + "patientName VARCHAR(40) NOT NULL,"
-                            + "department VARCHAR(40) NOT NULL,"
-                            + "doctor VARCHAR(40) NOT NULL"
-                            + ");");
-            System.out.println(ANSI_GREEN + "Medication history table created..." + ANSI_RESET);
-            
-            
+         
      
 
         } 
@@ -89,50 +74,13 @@ public class DatabaseIO {
 //        System.out.println("Patient stored.");
 //    }
     
-    public void addPatient(String name, String[] complaints) throws SQLException{
+    public void addEntry(int invoice, int stockCode, String description, int quantity, String invoiceDate, double price, int customerID, String country) throws SQLException{
         Connection conn = DriverManager.getConnection(DB_URL + "/" + DB_NAME, USER, PASSWD);
         Statement stmt = conn.createStatement();
-        stmt.execute(String.format("INSERT INTO patients ( name, complaints) VALUES ('%s', '%s')", name, Arrays.toString(complaints)));
+        stmt.execute(String.format("INSERT INTO miniHomework5 ( invoice, stockCode, description, quantity, invoiceDate, price, customerID, country) VALUES (%d, %d, '%s', %d, '%s', %d, %d, '%s')", invoice, stockCode, description, quantity, invoiceDate, price, customerID, country));
         System.out.println(ANSI_RED + "Patient data stored." + ANSI_RESET);
     }
     
-    
-    public String getPatient (int patientID) throws SQLException{
-        Connection conn = DriverManager.getConnection(DB_URL + "/" + DB_NAME, USER, PASSWD);
-        Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM patients WHERE patientID = %d;", patientID));
-        rs.next();
-        String name = rs.getString("name");
-        String complaints = rs.getString("complaints");
-        return ANSI_RED + "Patient with patient number " + patientID + " is: " + name + " and their complaints are: " + complaints + ANSI_RESET;
-    }
-    
-    public String getPatient (String name) throws SQLException{
-        Connection conn = DriverManager.getConnection(DB_URL + "/" + DB_NAME, USER, PASSWD);
-        Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM patients WHERE name = '%s';", name));
-        rs.next();
-        int patientID = rs.getInt("patientID");
-//        Array complaints = rs.getArray("complaints");
-        String complaints = rs.getString("complaints");
-        return ANSI_RED + "Patient with patient number " + patientID + " is: " + name + " and their complaints are: " + complaints + ANSI_RESET;
-    }
-
-     public void addSurgeryHistory(String patName, String dept, String surgName) throws SQLException{
-        Connection conn = DriverManager.getConnection(DB_URL + "/" + DB_NAME, USER, PASSWD);
-        Statement stmt = conn.createStatement();
-        stmt.execute(String.format("INSERT INTO surgery_History ( patientName, department, surgeon) VALUES ('%s', '%s', '%s')", patName, dept, surgName));
-        System.out.println(ANSI_RED + "Surgery history recorded." + ANSI_RESET);
-    }
      
-      public void addMedicationHistory (String patName, String dept, String docName) throws SQLException{
-        Connection conn = DriverManager.getConnection(DB_URL + "/" + DB_NAME, USER, PASSWD);
-        Statement stmt = conn.createStatement();
-        stmt.execute(String.format("INSERT INTO medication_History ( patientName, department, doctor) VALUES ('%s', '%s', '%s')", patName, dept, docName));
-        System.out.println(ANSI_RED + "Medication history recorded." + ANSI_RESET);
-    }
-    
-    
-    
-    
+   
 }
