@@ -4,6 +4,8 @@
  */
 package homeworkassignment5;
 
+import java.sql.SQLException;
+
 /**
  *
  * @author kavip
@@ -13,8 +15,12 @@ public class HomeworkAssignment5 {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+
+       DatabaseIO dbConn = new DatabaseIO();
+       dbConn.createDB();
+        
+        
     }
     
 }
