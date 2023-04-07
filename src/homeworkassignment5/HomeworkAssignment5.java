@@ -4,6 +4,7 @@
  */
 package homeworkassignment5;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 /**
@@ -15,10 +16,10 @@ public class HomeworkAssignment5 {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+    public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException, IOException {
 
-//       DatabaseIO dbConn = new DatabaseIO();
-//       dbConn.createDB();
+       DatabaseIO dbConn = new DatabaseIO();
+       dbConn.createDB();
         
 
     MyFileReader fR = new MyFileReader();

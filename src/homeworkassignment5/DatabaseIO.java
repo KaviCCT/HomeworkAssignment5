@@ -27,8 +27,8 @@ public class DatabaseIO {
     public static final String ANSI_CYAN = "\u001B[36m";
     
     private final String DB_URL = "jdbc:mysql://localhost";
-    private final String USER = "root";
-    private final String PASSWD = "KdMySQL@CCT@2023";
+    private final String USER = "pooa";
+    private final String PASSWD = "pooa";
     private final String DB_NAME = "homework";
     
     public void createDB() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
