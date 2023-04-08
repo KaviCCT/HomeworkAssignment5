@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -29,8 +30,9 @@ public class MyFileReader {
     
     
     
-    public void readFile() throws IOException{
+    public void readFile() throws IOException, SQLException{
     
+        DatabaseIO dbConn = new DatabaseIO();
         
          
         
@@ -83,17 +85,18 @@ public class MyFileReader {
                 description = fileLineArray[2];
                 quantity = Integer.parseInt(fileLineArray[3]);
                 invoiceDate = fileLineArray[4];
-                price = Double.parseDouble(fileLineArray[5]);
+                price = (double)Double.parseDouble(fileLineArray[5]);
                 customerID = Integer.parseInt(fileLineArray[6]);
                 country = fileLineArray[7];
-                System.out.println(Integer.toString(invoice));
-                System.out.println(Integer.toString(stockCode));
-                System.out.println(description);
-                System.out.println(Integer.toString(quantity));
-                System.out.println(invoiceDate);
-                System.out.println(Double.toString(price));
-                System.out.println(Integer.toString(customerID));
-                System.out.println(country);
+//                System.out.println(Integer.toString(invoice));
+//                System.out.println(Integer.toString(stockCode));
+//                System.out.println(description);
+//                System.out.println(Integer.toString(quantity));
+//                System.out.println(invoiceDate);
+//                System.out.println(Double.toString(price));
+//                System.out.println(Integer.toString(customerID));
+//                System.out.println(country);
+                dbConn.addEntry(invoice, stockCode, description, quantity, invoiceDate, price, customerID, country);
             }
             System.out.println(ANSI_GREEN + "File loaded." + ANSI_RESET);
             System.out.println("***********************************");

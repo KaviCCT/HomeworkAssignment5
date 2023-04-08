@@ -18,13 +18,15 @@ public class HomeworkAssignment5 {
      */
     public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException, IOException {
 
-       DatabaseIO dbConn = new DatabaseIO();
-       dbConn.createDB();
+    DatabaseIO dbConn = new DatabaseIO();
+    dbConn.createDB();
         
 
     MyFileReader fR = new MyFileReader();
     fR.readFile();
 
+    
+    
         
     }
     

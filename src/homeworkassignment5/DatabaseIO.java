@@ -77,7 +77,7 @@ public class DatabaseIO {
     public void addEntry(int invoice, int stockCode, String description, int quantity, String invoiceDate, double price, int customerID, String country) throws SQLException{
         Connection conn = DriverManager.getConnection(DB_URL + "/" + DB_NAME, USER, PASSWD);
         Statement stmt = conn.createStatement();
-        stmt.execute(String.format("INSERT INTO miniHomework5 ( invoice, stockCode, description, quantity, invoiceDate, price, customerID, country) VALUES (%d, %d, '%s', %d, '%s', %d, %d, '%s')", invoice, stockCode, description, quantity, invoiceDate, price, customerID, country));
+        stmt.execute(String.format("INSERT INTO miniHomework5 ( invoice, stockCode, description, quantity, invoiceDate, price, customerID, country) VALUES (%d, %d, '%s', %d, '%s', %f, %d, '%s')", invoice, stockCode, description, quantity, invoiceDate, price, customerID, country));
         System.out.println(ANSI_RED + "Patient data stored." + ANSI_RESET);
     }
     
