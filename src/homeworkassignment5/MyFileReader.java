@@ -52,7 +52,7 @@ public class MyFileReader {
             double price;
             int customerID;
             String country;
-            
+            String newDescription = "";
 //            int invoice;
 //            int stockCode;
 //            String description;
@@ -83,20 +83,16 @@ public class MyFileReader {
                 invoice = Integer.parseInt(fileLineArray[0]);
                 stockCode = Integer.parseInt(fileLineArray[1]);
                 description = fileLineArray[2];
+                if (description.contains("'")){
+                    newDescription = description.replace("'","''");
+                }
                 quantity = Integer.parseInt(fileLineArray[3]);
                 invoiceDate = fileLineArray[4];
                 price = (double)Double.parseDouble(fileLineArray[5]);
                 customerID = Integer.parseInt(fileLineArray[6]);
                 country = fileLineArray[7];
-//                System.out.println(Integer.toString(invoice));
-//                System.out.println(Integer.toString(stockCode));
-//                System.out.println(description);
-//                System.out.println(Integer.toString(quantity));
-//                System.out.println(invoiceDate);
-//                System.out.println(Double.toString(price));
-//                System.out.println(Integer.toString(customerID));
-//                System.out.println(country);
-                dbConn.addEntry(invoice, stockCode, description, quantity, invoiceDate, price, customerID, country);
+
+                dbConn.addEntry(invoice, stockCode, newDescription, quantity, invoiceDate, price, customerID, country);
             }
             System.out.println(ANSI_GREEN + "File loaded." + ANSI_RESET);
             System.out.println("***********************************");
