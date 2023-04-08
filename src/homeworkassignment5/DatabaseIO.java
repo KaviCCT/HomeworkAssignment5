@@ -33,9 +33,12 @@ public class DatabaseIO {
     
     public void createDB() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+        Connection conn = null; 
+        Statement stmt = null;
+        
         try {
-            Connection conn = DriverManager.getConnection(DB_URL, USER, PASSWD);
-            Statement stmt = conn.createStatement();
+            conn = DriverManager.getConnection(DB_URL, USER, PASSWD);
+            stmt = conn.createStatement();
             stmt.execute("CREATE DATABASE IF NOT EXISTS " + DB_NAME + ";");
 
             System.out.println(ANSI_GREEN + "Database Created..." + ANSI_RESET);
@@ -64,6 +67,10 @@ public class DatabaseIO {
         } 
         catch (Exception e) {
             e.printStackTrace();
+        }
+        finally{
+            if(conn != null) conn.close();
+            if(stmt !=null) stmt.close();
         }
     }
     
