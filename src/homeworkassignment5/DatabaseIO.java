@@ -68,18 +68,22 @@ public class DatabaseIO {
         catch (Exception e) {
             e.printStackTrace();
         }
+//        finally{
+//            if(conn != null) conn.close();
+//            if(stmt !=null) stmt.close();
+//        }
         finally{
-            if(conn != null) conn.close();
-            if(stmt !=null) stmt.close();
+            if((conn != null) || (stmt !=null)) {
+                try{    conn.close();
+                        stmt.close();
+                }catch (SQLException ignore){}
+                
+            }
         }
+        
     }
     
-//    public void addPatient( int patientID, String name, String[] complaints) throws SQLException{
-//        Connection conn = DriverManager.getConnection(DB_URL + "/" + DB_NAME, USER, PASSWD);
-//        Statement stmt = conn.createStatement();
-//        stmt.execute(String.format("INSERT INTO patients ( patientID, name, complaints) VALUES ('%d', %s, %s)", patientID, name,  complaints));
-//        System.out.println("Patient stored.");
-//    }
+
     
     public void addEntry(int invoice, int stockCode, String description, int quantity, String invoiceDate, double price, int customerID, String country) throws SQLException{
         Connection conn = DriverManager.getConnection(DB_URL + "/" + DB_NAME, USER, PASSWD);

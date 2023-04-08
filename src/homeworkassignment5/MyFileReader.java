@@ -96,10 +96,14 @@ public class MyFileReader {
             }
             System.out.println(ANSI_GREEN + "File loaded." + ANSI_RESET);
             System.out.println("***********************************");
+            file.close();
+            dbConn = null;
         }
-         catch (FileNotFoundException ex) {
+         catch (Exception err) {
             System.out.println(ANSI_RED + "File not found." + ANSI_RESET);
+            System.out.println(err.getMessage());
         }
+         
 
     } 
     
